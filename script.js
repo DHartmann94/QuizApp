@@ -44,18 +44,29 @@ let questions = [
 let currentQuestion = 0;
 
 function init() {
-    document.getElementById('all-questions').innerHTML = questions.length;
+    content = document.getElementById('card-content');
+    content.innerHTML = quizWelcomeTemplate();
+}
 
+function initQuestions() {
+    content = document.getElementById('card-content');
+    content.innerHTML = quizCardTemplate();
+    document.getElementById('all-questions').innerHTML = questions.length;
     showQuestion()
 }
 
 function showQuestion() {
-    let question = questions[currentQuestion];
-    document.getElementById('quenstionText').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if (currentQuestion >= questions.length) {
+        // TODO: SHOW ENDSCREEN
+    } else {
+        let question = questions[currentQuestion];
+        document.getElementById('active-question').innerHTML = currentQuestion + 1;
+        document.getElementById('quenstionText').innerHTML = question['question'];
+        document.getElementById('answer_1').innerHTML = question['answer_1'];
+        document.getElementById('answer_2').innerHTML = question['answer_2'];
+        document.getElementById('answer_3').innerHTML = question['answer_3'];
+        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    }
 }
 
 function answer(selection) {
@@ -63,7 +74,7 @@ function answer(selection) {
     let selectionQuestionNumber = selection.slice(-1);
     let showRightAnswer = `answer_${question['right_answer']}`;
 
-    if(selectionQuestionNumber == question['right_answer']) {
+    if (selectionQuestionNumber == question['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger');
@@ -71,4 +82,77 @@ function answer(selection) {
     }
 
     document.getElementById('next-button').disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('next-button').disabled = true;
+    resetAnswerButtons();
+    showQuestion();
+}
+
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+}
+
+
+/* --- Templates --- */
+function quizWelcomeTemplate() {
+    return /*html*/`
+    <div class="card-body welcome-text">
+        <span>Welcome to</span>
+        <span>The Awesome HTML Quiz</span>
+        <button class="button-arrow" onclick="initQuestions()">Start</button>
+    </div>
+    `;
+}
+
+function quizCardTemplate() {
+    return /*html*/`
+    <div class="card-body">
+        <h5 class="card-title text-center" id="quenstionText">Frage</h5>
+        <div class="card quiz-answer-card mb-2" onclick="answer('answer_1')">
+            <div class="card-body">
+                <span class="card-letter"><b>A</b></span>
+                <span id="answer_1">Antwort</span>
+            </div>
+        </div>
+
+        <div class="card quiz-answer-card mb-2" onclick="answer('answer_2')">
+            <div class="card-body">
+                <span class="card-letter"><b>B</b></span>
+                <span id="answer_2">Antwort</span>
+            </div>
+        </div>
+
+        <div class="card quiz-answer-card mb-2" onclick="answer('answer_3')">
+            <div class="card-body">
+                <span class="card-letter"><b>C</b></span>
+                <span id="answer_3">Antwort</span>
+            </div>
+        </div>
+
+        <div class="card quiz-answer-card mb-2" onclick="answer('answer_4')">
+            <div class="card-body">
+                <span class="card-letter"><b>D</b></span>
+                <span id="answer_4">Antwort</span>
+            </div>
+        </div>
+        
+        <div class="card-footer">
+            <button class="button-arrow"><img class="img-arrow" src="img/arrow-88-128.png"
+                alt="left-arrow"></button>
+            <span class="text-center"><b id="active-question">1</b> von <b id="all-questions">5</b></span>
+            <button class="button-arrow" id="next-button" onclick="nextQuestion()" disabled><img class="img-arrow"
+                src="img/arrow-24-128.png" alt="right-arrow"></button>
+        </div>
+    </div>
+    `;
 }

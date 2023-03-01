@@ -1,7 +1,7 @@
 body {
+    font-family: 'Rubik', sans-serif !important;
     min-height: 100vh;
     margin: 0rem;
-    font-family: 'Rubik', sans-serif !important;
 }
 
 .main-container {
@@ -21,15 +21,15 @@ body {
 }
 
 .card-letter {
-    border: 1px solid transparent;
     background-color: lightgrey;
+    border: 1px solid transparent;
     padding: 0.5rem;
     margin-right: 2rem;
 }
 
 .quiz-answer-card:hover {
-    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
 
 .side-card {
@@ -47,16 +47,28 @@ body {
     justify-content: space-between;
 }
 
+.welcome-text {
+    font-weight: 600;
+    background-image: url(img/bg-b.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .text-center {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .button-arrow {
+    background-color: lightgrey;
     border: 1px solid transparent;
     border-radius: 100%;
-    background-color: lightgrey;
 }
 
 .button-arrow:hover {
@@ -68,4 +80,3 @@ body {
     margin: 0.7rem;
     object-fit: cover;
 }
-
