@@ -57,7 +57,8 @@ function initQuestions() {
 
 function showQuestion() {
     if (currentQuestion >= questions.length) {
-        // TODO: SHOW ENDSCREEN
+        content = document.getElementById('card-content');
+        content.innerHTML = endscreenTemplate();
     } else {
         let question = questions[currentQuestion];
         document.getElementById('active-question').innerHTML = currentQuestion + 1;
@@ -109,7 +110,25 @@ function quizWelcomeTemplate() {
     <div class="card-body welcome-text">
         <span>Welcome to</span>
         <span>The Awesome HTML Quiz</span>
-        <button class="button-arrow" onclick="initQuestions()">Start</button>
+        <button class="button-arrow mt-4" onclick="initQuestions()">Start</button>
+    </div>
+    `;
+}
+
+function endscreenTemplate() {
+    return /*html*/`
+    <div class="card-body">
+        <div class="endscreen">
+            <img class="img-endscreen" src="img/Group-5.png">
+            <span><b>Complete</b></span>
+            <span><b>HTML Quiz</b></span>
+            <div>
+            <span class="your-score">Your Score</span>
+            <span><b>1</b>/<b id="all-questions">5</b><span>
+            </div>
+            <div class="button-container"><button class="button-share">SHARE</button><div>
+            <div class="button-container"><button class="button-replay" onclick="initQuestions()">REPLAY</button><div>
+        <div>
     </div>
     `;
 }
@@ -145,7 +164,7 @@ function quizCardTemplate() {
                 <span id="answer_4">Antwort</span>
             </div>
         </div>
-        
+
         <div class="card-footer">
             <button class="button-arrow"><img class="img-arrow" src="img/arrow-88-128.png"
                 alt="left-arrow"></button>
