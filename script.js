@@ -24,7 +24,7 @@ let questions = [
         "right_answer": 2
     },
     {
-        "question": "Wie wählst du alle Elemente vom Typ <a> mit dem attribut title aus?",
+        "question": "Wie wählst du alle Elemente vom Typ a mit dem attribut title aus?",
         "answer_1": "a[title]{...}",
         "answer_2": "a > title{...}",
         "answer_3": "a.title{...}",
@@ -61,9 +61,7 @@ function showQuestion() {
         content = document.getElementById('card-content');
         content.innerHTML = endscreenTemplate();
     } else { // show Questions
-        let percent = currentQuestion / questions.length * 100;
-        document.getElementById('progress-bar').innerHTML = `${percent}%`;
-        document.getElementById('progress-bar').style.width = `${percent}%`;
+        calculatorProgressbar();
 
         let question = questions[currentQuestion];
         document.getElementById('active-question').innerHTML = currentQuestion + 1;
@@ -73,6 +71,12 @@ function showQuestion() {
         document.getElementById('answer_3').innerHTML = question['answer_3'];
         document.getElementById('answer_4').innerHTML = question['answer_4'];
     }
+}
+
+function calculatorProgressbar() {
+    let percent = (currentQuestion+1) / questions.length * 100;
+    document.getElementById('progress-bar').innerHTML = `${percent}%`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
 }
 
 function answer(selection) {
@@ -109,6 +113,12 @@ function resetAnswerButtons() {
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
 }
 
+function restartGame() {
+    currentQuestion = 0;
+    rightQuestions = 0;
+    initQuestions();
+}
+
 
 /* --- Templates --- */
 function quizWelcomeTemplate() {
@@ -140,7 +150,7 @@ function endscreenTemplate() {
                 <span><b>${rightQuestion}</b>/<b>${amountQuestions}</b><span>
             </div>
             <div class="button-container"><button class="button-share">SHARE</button><div>
-            <div class="button-container"><button class="button-replay" onclick="initQuestions()">REPLAY</button><div>
+            <div class="button-container"><button class="button-replay" onclick="restartGame()">REPLAY</button><div>
         <div>
     </div>
     `;
