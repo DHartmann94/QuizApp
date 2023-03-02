@@ -42,6 +42,7 @@ let questions = [
 ];
 
 let currentQuestion = 0;
+let rightQuestions = 0;
 
 function init() {
     content = document.getElementById('card-content');
@@ -56,10 +57,14 @@ function initQuestions() {
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) {
+    if (currentQuestion >= questions.length) { // show Endscreen
         content = document.getElementById('card-content');
         content.innerHTML = endscreenTemplate();
-    } else {
+    } else { // show Questions
+        let percent = currentQuestion / questions.length * 100;
+        document.getElementById('progress-bar').innerHTML = `${percent}%`;
+        document.getElementById('progress-bar').style.width = `${percent}%`;
+
         let question = questions[currentQuestion];
         document.getElementById('active-question').innerHTML = currentQuestion + 1;
         document.getElementById('quenstionText').innerHTML = question['question'];
@@ -77,6 +82,7 @@ function answer(selection) {
 
     if (selectionQuestionNumber == question['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightQuestions++;
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(showRightAnswer).parentNode.classList.add('bg-success');
@@ -110,21 +116,28 @@ function quizWelcomeTemplate() {
     <div class="card-body welcome-text">
         <span>Welcome to</span>
         <span>The Awesome HTML Quiz</span>
-        <button class="button-arrow mt-4" onclick="initQuestions()">Start</button>
+        <button class="button-start mt-4" onclick="initQuestions()">Start</button>
     </div>
     `;
 }
 
 function endscreenTemplate() {
+    let amountQuestions = questions.length;
+    let rightQuestion = rightQuestions;
     return /*html*/`
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+    </div>
     <div class="card-body">
         <div class="endscreen">
             <img class="img-endscreen" src="img/Group-5.png">
-            <span><b>Complete</b></span>
-            <span><b>HTML Quiz</b></span>
-            <div>
-            <span class="your-score">Your Score</span>
-            <span><b>1</b>/<b id="all-questions">5</b><span>
+            <div class="complete-text">
+                <span><b>Complete</b></span>
+                <span><b>HTML Quiz</b></span>
+            </div>
+            <div class="score-text">
+                <span class="your-score"><b>Your Score</b></span>
+                <span><b>${rightQuestion}</b>/<b>${amountQuestions}</b><span>
             </div>
             <div class="button-container"><button class="button-share">SHARE</button><div>
             <div class="button-container"><button class="button-replay" onclick="initQuestions()">REPLAY</button><div>
@@ -135,6 +148,9 @@ function endscreenTemplate() {
 
 function quizCardTemplate() {
     return /*html*/`
+    <div class="progress">
+        <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
     <div class="card-body">
         <h5 class="card-title text-center" id="quenstionText">Frage</h5>
         <div class="card quiz-answer-card mb-2" onclick="answer('answer_1')">
