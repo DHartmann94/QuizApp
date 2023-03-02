@@ -156,3 +156,54 @@ body {
 .button-replay:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+@media (max-width: 700px) {
+    .quiz-card {
+        width: 20rem;
+        display: block;
+    }
+
+    .question-card {
+        width: 20rem;
+        min-height: 20rem;
+    }
+
+    .quiz-logo {
+        width: 4rem;
+        object-fit: contain;
+    }
+
+    .sidecard-bc {
+        flex-direction: row !important;
+        justify-content: space-evenly !important;
+        align-items: center;
+    }
+
+    .side-card {
+        display: none;
+    }
+
+    /*--- Startscreen ---*/
+    .welcome-text {
+        font-size: 16px;
+    }
+
+    /*--- Endscreen ---*/
+    .img-endscreen {
+        width: 10rem;
+        object-fit: contain;
+    }
+
+    .complete-text {
+        margin: 0,5rem 0rem 0.5rem 0rem;
+        font-size: 16px;
+    }
+    
+    .score-text {
+        font-size: 16px;
+    }
+
+    .button-container {
+        font-size: 16px;
+    }
+}

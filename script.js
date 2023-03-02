@@ -90,6 +90,13 @@ function answer(selection) {
     }
 
     document.getElementById('next-button').disabled = false;
+    //blockAnswer();
+}
+
+function blockAnswer() {
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(`click_${i}`).onclick = null;
+    }
 }
 
 function rightAnswerSelected(selectionQuestionNumber, question) {
@@ -104,14 +111,11 @@ function nextQuestion() {
 }
 
 function resetAnswerButtons() {
-    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
-    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
-    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
-    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
-    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
-    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
-    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
-    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(`answer_${i}`).parentNode.classList.remove('bg-danger');
+        document.getElementById(`answer_${i}`).parentNode.classList.remove('bg-success');
+        //document.getElementById(`click_${i}`).onclick = answer(`answer_${i}`);
+    }
 }
 
 function showEndscreen() {
@@ -157,7 +161,7 @@ function endscreenTemplate() {
     </div>
     <div class="card-body">
         <div class="endscreen">
-            <img class="img-endscreen" src="img/Group-5.png">
+            <img class="img-endscreen" src="img/Group-5.png" alt="Endscreen Logo">
             <div class="complete-text">
                 <span><b>Complete</b></span>
                 <span><b>HTML Quiz</b></span>
@@ -180,28 +184,28 @@ function quizCardTemplate() {
     </div>
     <div class="card-body">
         <h5 class="card-title text-center" id="quenstionText">Frage</h5>
-        <div class="card quiz-answer-card mb-2" onclick="answer('answer_1')">
+        <div class="card quiz-answer-card mb-2" id="click_1" onclick="answer('answer_1')">
             <div class="card-body">
                 <span class="card-letter"><b>A</b></span>
                 <span id="answer_1">Antwort</span>
             </div>
         </div>
 
-        <div class="card quiz-answer-card mb-2" onclick="answer('answer_2')">
+        <div class="card quiz-answer-card mb-2" id="click_2" onclick="answer('answer_2')">
             <div class="card-body">
                 <span class="card-letter"><b>B</b></span>
                 <span id="answer_2">Antwort</span>
             </div>
         </div>
 
-        <div class="card quiz-answer-card mb-2" onclick="answer('answer_3')">
+        <div class="card quiz-answer-card mb-2" id="click_3" onclick="answer('answer_3')">
             <div class="card-body">
                 <span class="card-letter"><b>C</b></span>
                 <span id="answer_3">Antwort</span>
             </div>
         </div>
 
-        <div class="card quiz-answer-card mb-2" onclick="answer('answer_4')">
+        <div class="card quiz-answer-card mb-2" id="click_4" onclick="answer('answer_4')">
             <div class="card-body">
                 <span class="card-letter"><b>D</b></span>
                 <span id="answer_4">Antwort</span>
