@@ -43,6 +43,7 @@ let questions = [
 
 let currentQuestion = 0;
 let rightQuestions = 0;
+let completeGameAudio = new Audio('audio/gameComplete.mp3')
 
 function init() {
     content = document.getElementById('card-content');
@@ -57,20 +58,16 @@ function initQuestions() {
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) { // show Endscreen
-        content = document.getElementById('card-content');
-        content.innerHTML = endscreenTemplate();
-    } else { // show Questions
+    if (gameIsOver()) {
+        showEndscreen();
+    } else {
         calculatorProgressbar();
-
-        let question = questions[currentQuestion];
-        document.getElementById('active-question').innerHTML = currentQuestion + 1;
-        document.getElementById('quenstionText').innerHTML = question['question'];
-        document.getElementById('answer_1').innerHTML = question['answer_1'];
-        document.getElementById('answer_2').innerHTML = question['answer_2'];
-        document.getElementById('answer_3').innerHTML = question['answer_3'];
-        document.getElementById('answer_4').innerHTML = question['answer_4'];
+        updateToNextQuestion();
     }
+}
+
+function gameIsOver() {
+    return currentQuestion >= questions.length;
 }
 
 function calculatorProgressbar() {
@@ -84,7 +81,7 @@ function answer(selection) {
     let selectionQuestionNumber = selection.slice(-1);
     let showRightAnswer = `answer_${question['right_answer']}`;
 
-    if (selectionQuestionNumber == question['right_answer']) {
+    if (rightAnswerSelected(selectionQuestionNumber, question)) { //Test right answer
         document.getElementById(selection).parentNode.classList.add('bg-success');
         rightQuestions++;
     } else {
@@ -93,6 +90,10 @@ function answer(selection) {
     }
 
     document.getElementById('next-button').disabled = false;
+}
+
+function rightAnswerSelected(selectionQuestionNumber, question) {
+    return selectionQuestionNumber == question['right_answer'];
 }
 
 function nextQuestion() {
@@ -111,6 +112,22 @@ function resetAnswerButtons() {
     document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+}
+
+function showEndscreen() {
+    content = document.getElementById('card-content');
+    content.innerHTML = endscreenTemplate();
+    completeGameAudio.play();
+}
+
+function updateToNextQuestion() {
+    let question = questions[currentQuestion];
+    document.getElementById('active-question').innerHTML = currentQuestion + 1;
+    document.getElementById('quenstionText').innerHTML = question['question'];
+    document.getElementById('answer_1').innerHTML = question['answer_1'];
+    document.getElementById('answer_2').innerHTML = question['answer_2'];
+    document.getElementById('answer_3').innerHTML = question['answer_3'];
+    document.getElementById('answer_4').innerHTML = question['answer_4'];
 }
 
 function restartGame() {
