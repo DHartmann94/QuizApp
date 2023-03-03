@@ -4,6 +4,10 @@ body {
     margin: 0rem;
 }
 
+.block-card {
+    pointer-events: none;
+}
+
 .main-container {
     background-color: #ebe8e6;
     min-height: 100vh;
@@ -147,7 +151,7 @@ body {
 }
 
 .button-replay {
-    color:  rgb(247, 115, 7);
+    color: rgb(247, 115, 7);
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 0.5rem;
@@ -195,10 +199,10 @@ body {
     }
 
     .complete-text {
-        margin: 0,5rem 0rem 0.5rem 0rem;
+        margin: 0, 5rem 0rem 0.5rem 0rem;
         font-size: 16px;
     }
-    
+
     .score-text {
         font-size: 16px;
     }
