@@ -51,7 +51,7 @@ function answer(selection) {
 }
 
 function blockMultiAnswer() {
-    for (let i = 1; i < questions.length; i++) {
+    for (let i = 1; i <= 4; i++) {
         document.getElementById(`click_${i}`).classList.add('block-card');
     }
 }
@@ -68,7 +68,7 @@ function nextQuestion() {
 }
 
 function resetAnswerButtons() {
-    for (let i = 1; i < questions.length; i++) {
+    for (let i = 1; i <= 4; i++) {
         document.getElementById(`answer_${i}`).parentNode.classList.remove('bg-danger');
         document.getElementById(`answer_${i}`).parentNode.classList.remove('bg-success');
         document.getElementById(`click_${i}`).classList.remove('block-card')
